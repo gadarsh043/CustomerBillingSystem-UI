@@ -6,30 +6,40 @@
           <div v-for="i in info" :key="i.id">
             <div v-bind:id="i.id">
               <img v-bind:src="i.imgsrc" style="width:60%">
-              <p></p>
-              {{ i.product_name }}
-              <p></p>
+              <p>
+              {{ i.product_name }} -
               {{ i.price }}
+              </p>
               </div>
           </div>
+        </div>
+        <div class="price-for-bill" v-for="check in user.productCollection" :key="check.id">
+          <div v-if="check.isSelected">
+            {{check.product_name}} {{ (check.price*check.quantity)}}
+          </div>
+        </div>
+        <div>
+          Total: {{getTotal}}
         </div>
       </div>
       <div class="open-item" id="demo">
         <template>
           <form @submit.prevent="handleSubmit">
-              <div class="form-group form-check" v-for="i in info" v-bind:key="i.id">
-                  <label class="form-check-label" :for="i.id">{{i.product_name}}</label>
-                  <input type="checkbox"  v-model="user.productCollection" :id="i.id" :value="i.id">
-                  <quantity :id="i.id" />
+              <div class="form-group form-check" v-for="i in user.productCollection" v-bind:key="i.id">
+                  <div class="productname-check">
+                    <label class="form-check-label" :for="i.id">{{i.product_name}}</label>
+                    <input type="checkbox"  v-model="i.isSelected" :id="i.id" :value="i.id">
+                  </div>
+                  <quantity :id="i.id" v-if="i.isSelected" :item='i' />
               </div>
 
               <!-- print result -->
-              <div class="form-group">
+              <!-- <div class="form-group">
                       {{user.productCollection}}
-              </div>
+              </div> -->
 
               <div class="form-group">
-                  <button class="btn btn-primary">Submit</button>
+                  <button class="btn btn-primary" @click='redirect'>Submit</button>
               </div>
           </form>
         </template>
@@ -45,10 +55,7 @@ export default {
   data () {
     return {
       info: '',
-      productid: '',
-      productname: '',
-      productprice: '',
-      productimage: '',
+      price: 0,
       user: {
         productCollection: []
       },
@@ -62,12 +69,39 @@ export default {
   components: {
     quantity
   },
+  computed: {
+    getTotal () {
+      let sum = 0
+      this.user.productCollection.forEach(e => {
+        if (e.isSelected) {
+          sum += e.price * e.quantity
+        }
+      })
+      return sum
+    }
+  },
   methods: {
     handleSubmit () {
       JSON.stringify(this.user)
     },
     getProductDetails () {
 
+    },
+    setProduct (id) {
+      this.user.productCollection[id] = 0
+    },
+    redirect () {
+      this.$router.push('/payment/adarsh')
+    },
+    setProductCollection (info) {
+      this.user.productCollection = []
+      for (const i in info) {
+        this.user.productCollection.push({
+          ...info[i],
+          isSelected: false,
+          quantity: 0
+        })
+      }
     }
   },
   mounted () {
@@ -76,6 +110,7 @@ export default {
       .then(response => {
         console.log(response)
         this.info = response.data
+        this.setProductCollection(this.info)
       })
   }
 }

@@ -44,13 +44,16 @@ export default {
         password: this.password
       }
       console.log(info)
-      axios.post('/login', info)
+      axios.post('http://10.177.68.56:8083/login', info)
         .then(e => {
-
+          console.log(e)
+          if (e.status === 200) {
+            this.$router.push('/product/adarsh')
+          }
         })
         .catch(error => {
           this.errorMessage = error.message
-          console.error('There was an error!', error)
+          alert('Invalid UserID or password')
         })
     }
   }

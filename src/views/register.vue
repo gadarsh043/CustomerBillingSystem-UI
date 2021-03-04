@@ -3,9 +3,6 @@
     <div class='header'>
     </div>
     <div class='page-view'>
-      <div id='errors'>
-      <p class='error-content' id='show-errors'> </p>
-      </div>
       <div class='content-page'>
         <div class='form'>
           <div class='input text'>
@@ -36,7 +33,7 @@
           </div>
           </div>
       </div>
-      <router-link to='/customer'>
+      <router-link to='/login'>
        <button type="submit" >
         <span class="default-btn" v-on:click="submitDetails"> Create Account</span>
        </button>
@@ -57,47 +54,41 @@ export default {
       number: '',
       email: '',
       address: '',
-      password: '',
-      message: ''
+      password: ''
     }
   },
   methods: {
     validate: function () {
-      var message = ''
       if (this.name === '') {
-        message = message + '- Name can\'t be Empty <br>'
+        alert('Name can\'t be Empty')
+        return 0
       }
       if (this.email === '') {
-        message = message + '- Email can\'t be Empty <br>'
+        alert('Email can\'t be Empty')
+        return 0
       }
-      if (isNaN(this.number) || this.phoneNumber === '' || this.phoneNumber.length !== 10) {
-        message += '- Invalid Phone number, must be 10 digits <br>'
+      if (isNaN(this.number) || this.number === '' || this.number.length !== 10) {
+        alert('Invalid Phone number, must be 10 digits')
+        return 0
       }
       if (this.password === '' || (this.password.length < 6 || this.password.length > 10)) {
-        message += '- Invalid password, must be between 6 and 10 characters <br>'
+        alert('Invalid password, must be between 6 and 10 characters')
+        return 0
       }
-      this.message = message
-      if (this.message !== '') {
-        alert(message)
-        return false
-      } else {
-        return true
-      }
+      return 1
     },
     submitDetails: function () {
       const user = {
-        name: this.name,
-        address: this.address,
-        phone: this.phone,
-        email: this.email,
+        username: this.name,
+        // address: this.address,
+        // phone: this.phone,
+        // email: this.email,
         password: this.password
       }
-      if (this.validate()) {
-        axios.post('http://localhost:5432/customers', user)
-          .then(response => {
-            console.log(response)
-          })
-      }
+      axios.post('http://10.177.68.56:8083/users/sign-up', user)
+        .then(response => {
+          console.log(response)
+        })
     }
   }
 }
@@ -129,24 +120,6 @@ div {
   border-radius: 5px;
   padding: 20px;
 }
-#errors{
-    display: none;
-    z-index: 3;
-    width: 100vw;
-    height: 100vh;
-    background: rgb(99, 99, 99, 0.5);
-    position: fixed;
-    border: 1px solid white;
-  }
-  #errors > div {
-    padding: 20px;
-  }
-  .error-content{
-    margin: 20px;
-    margin-top: 50px;
-    text-align: left;
-    color: red;
-  }
   .div-text {
       width: -webkit-fill-available;
       padding-bottom: 10px;

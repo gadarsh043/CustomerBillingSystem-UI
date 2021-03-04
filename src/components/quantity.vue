@@ -1,13 +1,16 @@
 <template>
   <div class="quantity-toggle">
-      <button @click="decrement()">&mdash;</button>
-      <input class="input-1" type="text" :value="quantity" readonly>
-      <button @click="increment()">&#xff0b;</button>
+      <button @click="decrement()" class='b' id="prodbutton">&mdash;</button>
+      <input class="input-1" type="text" :value="item.quantity" readonly>
+      <button @click="increment()" class='b' id="prodbutton">&#xff0b;</button>
     </div>
 </template>
 
 <script>
 export default {
+  props: {
+    item: Object
+  },
   data () {
     return {
       quantity: 0,
@@ -18,13 +21,13 @@ export default {
   },
   methods: {
     increment () {
-      this.quantity++
+      this.item.quantity++
     },
     decrement () {
-      if (this.quantity === 0) {
+      if (this.item.quantity === 0) {
         alert('Negative quantity not allowed')
       } else {
-        this.quantity--
+        this.item.quantity--
       }
     }
   }
@@ -34,6 +37,9 @@ export default {
 .quantity-toggle{
   display: flex;
   margin: 2%;
+}
+#prodbutton {
+  padding: 3px 9px;
 }
 .input-1{
   width: 10%;

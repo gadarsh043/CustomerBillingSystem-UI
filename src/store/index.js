@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     info: '',
-    c: ''
+    c: '',
+    price: 0,
+    productCollection: []
   },
   getters: {
 
