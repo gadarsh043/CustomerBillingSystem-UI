@@ -69,9 +69,101 @@ export default {
   }
 }
 </script>
-<style >
-body  {
-  background-color: #99CDA9;
+<style scoped>
+.input div span {
+    font-weight: 700;
+    color: red;
+    padding: 20px;
+    border:1px black;
+    align-content: space-between;
+}
+div {
+  flex: auto;
+  box-sizing: border-box;
+  display: block;
+}
+#password {
+  -webkit-text-security:disc
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.field {
+  width: 18rem;
+}
+.input {
+  border-radius: 5px;
+  padding: 20px;
+}
+  .div-text {
+      width: -webkit-fill-available;
+      padding-bottom: 10px;
+      float: right;
+  }
+.content-page {
+  padding: 3.5rem;
+  margin-left: 30rem;
+}
+button {
+  background-color: darkgreen;
+  border-radius: 2px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 18px;
+  margin: auto;
+}
+form {
+  border: 1px black;
+}.input div span {
+    font-weight: 700;
+    color: red;
+    padding: 20px;
+    border:1px black;
+    align-content: space-between;
+}
+div {
+  flex: auto;
+  box-sizing: border-box;
+  display: block;
+}
+#password {
+  -webkit-text-security:disc
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.field {
+  width: 18rem;
+}
+.input {
+  border-radius: 5px;
+  padding: 20px;
+}
+  .div-text {
+      width: -webkit-fill-available;
+      padding-bottom: 10px;
+      float: right;
+  }
+.content-page {
+  padding: 3.5rem;
+  margin-left: 30rem;
+}
+button {
+  background-color: darkgreen;
+  border-radius: 2px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 18px;
+  margin: auto;
+}
+form {
+  border: 1px black;
 }
 .row {
   display: -ms-flexbox;
@@ -151,5 +243,40 @@ span.price {
   .col-25 {
     margin-bottom: 20px;
   }
+}
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #433520;
+}
+div {
+  box-sizing: border-box;
+  display: block;
+}
+.center {
+  display: block;
+  padding-left: 23em;
+  padding-top: 10em;
+  width: 50%;
+}
+topnav {
+  width: 100%;
+  overflow: hidden;
+  background-color: #333;
+}
+.topnav span {
+  float: right;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  cursor: pointer;
+}
+.topnav span:hover {
+  background-color: #ddd;
+  color: black;
+}
+.topnav span.active {
+  background-color: #4CAF50;
+  color: white;
 }
 </style>

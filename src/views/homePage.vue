@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div>
     <div class='image'>
       <img src='https://due.com/wp-content/uploads/2017/04/Invoice-5.jpg' alt="invoice" class="center">
       </div>
@@ -10,10 +10,10 @@ export default {
   name: 'homePage'
 }
 </script>
-<style >
+<style scoped>
 body {
   font-family: 'Times New Roman', Times, serif;
-  background-color: #99CDA9;
+  background-color: sienna;
 }
 div {
   box-sizing: border-box;

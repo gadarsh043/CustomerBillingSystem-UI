@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main-cont">
+    <div class="main-cont" style="background-image: url('https://media3.s-nbcnews.com/j/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p_67dfb6820f7d3898b5486975903c2e51.fit-1240w.jpg');opacity: 1;">
       <div class="item-cont">
         <div class="flex-container">
           <div v-for="i in info" :key="i.id">
@@ -22,11 +22,11 @@
           Total: {{getTotal}}
         </div>
       </div>
-      <div class="open-item" id="demo">
+      <div class="open-item" id="demo" style="color: navajowhite; margin-top: 6%; margin-left: -7%;">
         <template>
           <form @submit.prevent="handleSubmit">
               <div class="form-group form-check" v-for="i in user.productCollection" v-bind:key="i.id">
-                  <div class="productname-check">
+                  <div class="productname-check" style="margin: 1rem">
                     <label class="form-check-label" :for="i.id">{{i.product_name}}</label>
                     <input type="checkbox"  v-model="i.isSelected" :id="i.id" :value="i.id">
                   </div>
@@ -91,7 +91,7 @@ export default {
       this.user.productCollection[id] = 0
     },
     redirect () {
-      this.$router.push('/payment/adarsh')
+      this.$router.push('/payment')
     },
     setProductCollection (info) {
       this.user.productCollection = []
@@ -106,7 +106,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://10.177.68.56:8080/product/getProducts')
+      .get('http://10.177.68.115:8080/product/getProducts')
       .then(response => {
         console.log(response)
         this.info = response.data
@@ -149,10 +149,14 @@ button {
 
 .flex-container > div {
   background-color: #f1f1f1;
-  width: 100px;
+  width: 130px;
   margin: 30px;
   line-height: 70px;
   font-size: 10px;
+}
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #433520;
 }
 /* .inside{
   font-size: 20px;

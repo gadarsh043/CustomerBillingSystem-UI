@@ -1,6 +1,6 @@
 <template>
 <div class="topnav">
-  <router-link to="/login"><span class="active">Login</span></router-link>
+  <router-link to="/login"><span >Login</span></router-link>
   <router-link to="/register"> <span >Register</span> </router-link>
   <router-link to="/"> <span >Home</span> </router-link>
 </div>
@@ -11,10 +11,10 @@ export default {
 }
 </script>
 <style scoped>
-topnav {
+.topnav {
   width: 100%;
   overflow: hidden;
-  background-color: #333;
+  background-color: rgb(201, 128, 65);
 }
 .topnav span {
   float: right;
@@ -25,11 +25,10 @@ topnav {
   cursor: pointer;
 }
 .topnav span:hover {
-  background-color: #ddd;
-  color: black;
+  background-color: #85603f;
+  color: white;
 }
 .topnav span.active {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #fde8cd;
 }
 </style>
