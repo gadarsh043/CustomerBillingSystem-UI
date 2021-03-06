@@ -53,6 +53,7 @@
 import axios from 'axios'
 import quantity from '../components/quantity'
 import navbar2 from '../components/navbar2'
+import store from '../store/index.js'
 export default {
   data () {
     return {
@@ -61,10 +62,7 @@ export default {
       user: {
         productCollection: []
       },
-      prodlist: [{
-        productid: 0,
-        quantity: 0
-      }]
+      prodlist: []
     }
   },
   name: 'product',
@@ -97,11 +95,21 @@ export default {
       for (const i in this.user.productCollection) {
         if (i.isSelected) {
           this.prodlist.push({
-            productid: i.productid,
+            product_id: i.id,
             quantity: i.quantity
           })
         }
       }
+      const k = this.prodlist
+      axios
+        .post('http://10.177.68.114:8082/customerbillingsystem/' + store.state.username, k)
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          this.errorMessage = error.message
+          console.log(error)
+        })
       this.$router.push('/payment/adarsh')
     },
     setProductCollection (info) {
@@ -126,6 +134,8 @@ export default {
       .catch(error => {
         this.errorMessage = error.message
         console.log(error)
+        alert('Not allowed, please login first')
+        this.$router.push({ path: '/login' })
       })
   }
 }

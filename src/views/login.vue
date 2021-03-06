@@ -32,6 +32,7 @@
 <script>
 import axios from 'axios'
 import navbar from '../components/navbar'
+import store from '../store/index.js'
 export default {
   name: 'login',
   components: {
@@ -49,6 +50,7 @@ export default {
       console.log(choice)
     },
     submit () {
+      store.state.username = this.username
       const info = {
         username: this.username,
         password: this.password
