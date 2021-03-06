@@ -63,6 +63,7 @@
 <script>
 import navbar2 from '../components/navbar2'
 import axios from 'axios'
+import store from '../store/index.js'
 export default {
   name: 'payment',
   components: {
@@ -70,15 +71,15 @@ export default {
   },
   methods: {
     cancelproduct () {
-      this.$router.push({ path: '/product/adarsh' })
+      this.$router.push({ path: '/product/' + store.state.username })
     },
     paymentSuccess: function () {
       alert('Payment Successfull')
       axios
-        .post('http://10.177.68.115:808/login', { headers: { Authorization: localStorage.getItem('Authorization') } })
+        .get('http://10.177.68.115:808/service3/product/getProducts', { headers: { Authorization: localStorage.getItem('Authorization') } })
         .then(response => {
           console.log(response)
-          this.$router.push({ path: '/product/adarsh' })
+          this.$router.push({ path: '/product/' + store.state.username })
         })
         .catch(error => {
           this.errorMessage = error.message
