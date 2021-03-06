@@ -46,7 +46,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://10.177.68.114:8082/customerbillingsystem/' + store.state.username)
+      .get('http://10.177.68.115:808/service2/customerbillingsystem/' + store.state.username, { headers: { Authorization: localStorage.getItem('Authorization') } })
       .then(response => {
         console.log(response)
         this.billList = response.data
