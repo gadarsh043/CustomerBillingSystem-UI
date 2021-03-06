@@ -63,7 +63,6 @@
 <script>
 import navbar2 from '../components/navbar2'
 import axios from 'axios'
-import store from '../store/index.js'
 export default {
   name: 'payment',
   components: {
@@ -71,15 +70,15 @@ export default {
   },
   methods: {
     cancelproduct () {
-      this.$router.push({ path: '/product/' + store.state.username })
+      this.$router.push({ path: '/product/adarsh' })
     },
     paymentSuccess: function () {
       alert('Payment Successfull')
       axios
-        .get('http://10.177.68.115:808/service3/product/getProducts', { headers: { Authorization: localStorage.getItem('Authorization') } })
+        .post('http://10.177.68.115:808/login', { headers: { Authorization: localStorage.getItem('Authorization') } })
         .then(response => {
           console.log(response)
-          this.$router.push({ path: '/product/' + store.state.username })
+          this.$router.push({ path: '/product/adarsh' })
         })
         .catch(error => {
           this.errorMessage = error.message
@@ -104,7 +103,6 @@ export default {
 </script>
 <style scoped>
 .paymentmain {
-
   background-image: url('https://media3.s-nbcnews.com/j/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p_67dfb6820f7d3898b5486975903c2e51.fit-1240w.jpg');
   margin: -8px;
   background-size: cover;

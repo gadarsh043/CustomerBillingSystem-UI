@@ -1,17 +1,27 @@
 <template>
 <div class="topnav">
   <a href="/" @click="logout" style="float:right;margin: 15px;">Logout</a>
-  <router-link to="/orderdetails"><span >My Orders</span></router-link>
+  <button @click="orderdetails" style="float: right;
+    margin: 15px;
+    border: 0;
+    background-color: rgb(201, 128, 65);
+    color: darkblue;
+    margin-top: 17px;
+    font-size: 14px;">Order Details</button>
   <router-link to="/"><span >Home</span></router-link>
 </div>
 </template>
 <script>
+import store from '../store/index.js'
 export default {
   name: 'navbar2',
   methods: {
     logout () {
       localStorage.removeItem('Authorization')
       this.$router.push('/')
+    },
+    orderdetails () {
+      this.$router.push('/orders/' + store.state.username)
     }
   }
 }

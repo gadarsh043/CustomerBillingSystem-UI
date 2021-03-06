@@ -8,6 +8,8 @@ import customerDetails from '@/views/customerDetails.vue'
 import product from '@/views/product.vue'
 import payment from '@/views/payment.vue'
 import orderDetails from '@/views/orderDetails.vue'
+import orders from '@/views/orders.vue'
+import invoicedetails from '@/views/invoicedetails.vue'
 
 Vue.use(VueRouter)
 
@@ -41,6 +43,16 @@ const routes = [
     path: '/payment/:username',
     name: 'payment',
     component: payment
+  },
+  {
+    path: '/invoicedetails',
+    name: 'invoicedetails',
+    component: invoicedetails
+  },
+  {
+    path: '/orders/:username',
+    name: 'orders',
+    component: orders
   },
   {
     path: '*',
