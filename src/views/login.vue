@@ -18,7 +18,7 @@
           </div>
           <div class="form-group">
               <input type="radio" value="adminstrator" @change="onChange($event)" name="user" id="adminstrator" >Adminstrator
-              <input type="radio" value="user" @change="onChange($event)" name="user" id="user">User
+              <input type="radio" value="user" @change="onChange($event)" name="user" id="user" checked="checked">User
           </div>
           <button type="button" @click="submit">Login</button>
           <!-- <a @click="submit">Login</a> -->
@@ -63,7 +63,7 @@ export default {
             console.log(e)
             console.log(e.data.Authorization)
             localStorage.setItem('Authorization', e.data.Authorization)
-            this.$router.push('/product/adarsh')
+            this.$router.push('/product/' + store.state.username)
           }
         })
         .catch(error => {

@@ -29,7 +29,7 @@
               <div class="form-group form-check" v-for="i in user.productCollection" v-bind:key="i.id">
                   <div class="productname-check" style="margin: 1rem">
                     <label class="form-check-label" :for="i.id">{{i.product_name}}</label>
-                    <input type="checkbox"  v-model="i.isSelected" :id="i.id" :value="i.id">
+                    <input type="checkbox"  v-model="i.isSelected" :id="i.id" :value="i.id" @change="change(i)">
                   </div>
                   <quantity :id="i.id" v-if="i.isSelected" :item='i' />
               </div>
@@ -91,18 +91,30 @@ export default {
     setProduct (id) {
       this.user.productCollection[id] = 0
     },
+    change (i) {
+      // console.log('inchange')
+      // if (i.isSelected) {
+      //   this.prodlist.push({
+      //     product_id: i.id,
+      //     quantity: i.quantity
+      //   })
+      // }
+    },
     redirect () {
-      for (const i in this.user.productCollection) {
-        if (i.isSelected) {
+      // for (const i in this.user.productCollection) {
+      // forEach(i in this.user.productCollection) {
+      for (var i = 0; i < this.user.productCollection.length; i++) {
+        console.log(i)
+        if (this.user.productCollection[i].isSelected) {
+          console.log('inSelected')
           this.prodlist.push({
-            product_id: i.id,
-            quantity: i.quantity
+            product_id: this.user.productCollection[i].id,
+            quantity: this.user.productCollection[i].quantity
           })
         }
       }
-      const k = this.prodlist
       axios
-        .post('http://10.177.68.114:8082/customerbillingsystem/' + store.state.username, k)
+        .post('http://10.177.68.114:8082/customerbillingsystem/' + store.state.username, this.prodlist)
         .then(response => {
           console.log(response.data)
         })
