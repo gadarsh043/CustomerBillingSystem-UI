@@ -33,18 +33,18 @@ const routes = [
     component: customerDetails
   },
   {
-    path: '/product',
+    path: '/product/:username',
     name: 'product',
     component: product
   },
   {
-    path: '/payment/:userid',
+    path: '/payment/:username',
     name: 'payment',
     component: payment
   },
   {
-    path: '/orderDetails/:userid',
-    name: 'orderDetails',
+    path: '*',
+    name: 'orderDetails', // This is the Error Page.
     component: orderDetails
   }
 ]

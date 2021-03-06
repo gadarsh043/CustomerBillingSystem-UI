@@ -8,7 +8,14 @@ export default new Vuex.Store({
     info: '',
     c: '',
     price: 0,
-    productCollection: []
+    user: {
+      productCollection: []
+    },
+    username: '',
+    prodlist: [{
+      productid: 0,
+      quantity: ''
+    }]
   },
   getters: {
 

@@ -1,5 +1,6 @@
 <template>
   <div class="login-main-div" style="background-image: url('https://media3.s-nbcnews.com/j/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p_67dfb6820f7d3898b5486975903c2e51.fit-1240w.jpg');opacity: 1;">
+    <navbar />
     <h1 class="main-heading" style="color: ghostwhite;">Please Login to have a "Perfect Coffee"</h1>
     <div class="login-page">
       <form style="margin-left: 15%; margin-right: 125px;opacity:80%">
@@ -7,15 +8,20 @@
           <img src="https://i.pinimg.com/474x/0c/9a/d3/0c9ad3fa8a8de42f9bebac875e636bcc.jpg" alt="Coffee-pic" class="coffee-pic">
         </div>
         <div class="container-login">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" v-model="username" placeholder="Enter Username">
-          <label for="psw"><b>Password</b></label>
-          <input type="password" v-model="password" placeholder="Enter Password">
+          <div>
+            <label for="username"><b>Username</b></label>
+            <input type="text" name="username" v-model="username" id="textbox1" placeholder="Enter Username" autocomplete="current-username">
+          </div>
+          <div>
+            <label for="userpassword"><b>Password</b></label>
+            <input type="password" name="password" v-model="password" id="textbox2" placeholder="Enter Password" autocomplete="current-password">
+          </div>
           <div class="form-group">
               <input type="radio" value="adminstrator" @change="onChange($event)" name="user" id="adminstrator" >Adminstrator
               <input type="radio" value="user" @change="onChange($event)" name="user" id="user">User
           </div>
-          <button @click="submit">Login</button>
+          <button type="button" @click="submit">Login</button>
+          <!-- <a @click="submit">Login</a> -->
         </div>
       </form>
     </div>
@@ -25,8 +31,12 @@
 
 <script>
 import axios from 'axios'
+import navbar from '../components/navbar'
 export default {
   name: 'login',
+  components: {
+    navbar
+  },
   data () {
     return {
       username: '',
@@ -44,15 +54,19 @@ export default {
         password: this.password
       }
       console.log(info)
-      axios.post('http://10.177.68.115:8083/login', info)
+      axios.post('http://10.177.68.115:808/login', info)
         .then(e => {
           console.log(e)
           if (e.status === 200) {
+            console.log(e)
+            console.log(e.data.Authorization)
+            localStorage.setItem('Authorization', e.data.Authorization)
             this.$router.push('/product/adarsh')
           }
         })
         .catch(error => {
           this.errorMessage = error.message
+          console.log(error)
           alert('Invalid UserID or password')
         })
     }
@@ -63,6 +77,7 @@ export default {
 <style scoped>
 body {
   font-family: Arial, Helvetica, sans-serif;
+  margin: -8px
 }
 form {
   border: 3px solid #f1f1f1;
@@ -110,6 +125,10 @@ img.avatar {
 }
 .login-main-div{
   background-color: antiquewhite;
+  margin: -8px;
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
 }
 .container-login {
   padding: 16px;

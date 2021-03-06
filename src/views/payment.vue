@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="paymentmain">
+    <navbar2 />
     <div class="row">
-      <h2 class='header'>Payment Page</h2>
-    <div class="col-75">
+      <h2 class='header' style="margin-left: 39rem;color: white;font-size: 34px;">Payment Page</h2>
+    <div class="col-75" style="opacity:0.867">
     <div class="container" id='abc'>
       <form action="/action_page.php">
         <div class="row">
@@ -46,30 +47,68 @@
         <label>
           <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
         </label>
-        <input type="submit" value="Continue to checkout" class="btn" v-on:click='paymentSuccess'>
+        <input type="button" value="Continue to checkout" class="btn" v-on:click='paymentSuccess'>
+        <button type="button" @click="cancelproduct" style="background-color: darkred; margin-left: 180px; padding: 11px 33px">Cancel</button>
       </form>
     </div>
   </div>
   <div class="col-25">
     <div class="container">
-      <p>Total <span class="price" style="color:black"><b>You Knew it</b></span></p>
+      <p>Total <span class="price" style="color:black;margin: -5px;"><b>You Knew it</b></span></p>
     </div>
   </div>
 </div>
   </div>
 </template>
 <script>
+import navbar2 from '../components/navbar2'
+import axios from 'axios'
 export default {
   name: 'payment',
+  components: {
+    navbar2
+  },
   methods: {
+    cancelproduct () {
+      this.$router.push({ path: '/product/adarsh' })
+    },
     paymentSuccess: function () {
       alert('Payment Successfull')
-      this.$router.push({ path: '/products/adarsh' })
+      axios
+        .post('http://10.177.68.115:808/login', { headers: { Authorization: localStorage.getItem('Authorization') } })
+        .then(response => {
+          console.log(response)
+          this.$router.push({ path: '/product/adarsh' })
+        })
+        .catch(error => {
+          this.errorMessage = error.message
+          console.log(error)
+        })
     }
+  },
+  created () {
+    axios
+      .get('http://10.177.68.115:808/service3/product/getProducts', { headers: { Authorization: localStorage.getItem('Authorization') } })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        this.errorMessage = error.message
+        console.log(error)
+        alert('Not allowed, please login first')
+        this.$router.push({ path: '/login' })
+      })
   }
 }
 </script>
 <style scoped>
+.paymentmain {
+  background-image: url('https://media3.s-nbcnews.com/j/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p_67dfb6820f7d3898b5486975903c2e51.fit-1240w.jpg');
+  margin: -8px;
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+}
 .input div span {
     font-weight: 700;
     color: red;
@@ -134,7 +173,7 @@ div {
 }
 * {
   margin: 0;
-  padding: 0;
+  padding: 14px;
 }
 .field {
   width: 18rem;
@@ -170,7 +209,7 @@ form {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin: 0 -16px;
+  margin: -9px -14px;
 }
 .header {
       margin-left: 29rem;
@@ -219,7 +258,7 @@ label {
   font-size: 24px;
 }
 .btn {
-  background-color: #4CAF50;
+  background-color: saddlebrown;
   color: white;
   padding: 12px;
   margin: 10px 0;
@@ -273,10 +312,12 @@ topnav {
 }
 .topnav span:hover {
   background-color: #ddd;
-  color: black;
 }
 .topnav span.active {
   background-color: #4CAF50;
   color: white;
+}
+*{
+  margin: 0;
 }
 </style>

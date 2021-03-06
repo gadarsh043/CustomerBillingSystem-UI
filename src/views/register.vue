@@ -1,5 +1,6 @@
 <template>
   <div class='layout'>
+    <navbar />
     <div class='header'>
     </div>
     <div class='page-view' style="background-image: url('https://media3.s-nbcnews.com/j/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p_67dfb6820f7d3898b5486975903c2e51.fit-1240w.jpg');opacity: 1;">
@@ -33,20 +34,20 @@
           </div>
           </div>
       </div>
-      <router-link to='/login'>
-       <button type="submit" >
-        <span class="default-btn" v-on:click="submitDetails"> Create Account</span>
+       <button type="button" v-on:click="submitDetails">
+        <span class="default-btn"> Create Account</span>
        </button>
-      </router-link>
     </div>
   </div>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import navbar from '../components/navbar'
 export default {
   name: 'register',
   components: {
+    navbar
   },
   data () {
     return {
@@ -63,21 +64,28 @@ export default {
         alert('Name can\'t be Empty')
         return 0
       }
+      // if (this.email !== '^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/') {
+      //   alert('Email is wrong')
+      //   return 0
+      // }
+      // if (isNaN(this.number)) {
+      //   alert('Use only numbers')
+      //   return 0
+      // }
+      if (this.number === '' || this.number.length !== 10) {
+        alert('Invalid Phone number, must be 10 digits')
+        return 0
+      }
       if (this.email === '') {
         alert('Email can\'t be Empty')
-        return 0
-      }
-      if (this.email === '/^[a-zA-Z-\']*$/') {
-        alert('Email is wrong')
-        return 0
-      }
-      if (isNaN(this.number) || this.number === '' || this.number.length !== 10) {
-        alert('Invalid Phone number, must be 10 digits')
         return 0
       }
       if (this.password === '' || (this.password.length < 6 || this.password.length > 10)) {
         alert('Invalid password, must be between 6 and 10 characters')
         return 0
+      }
+      if (this.address === '') {
+        alert('Address can\'t be Empty')
       }
       return 1
     },
@@ -89,15 +97,27 @@ export default {
         // email: this.email,
         password: this.password
       }
-      axios.post('http://10.177.68.115:8083/users/sign-up', user)
-        .then(response => {
-          console.log(response)
-        })
+      if (this.validate()) {
+        console.log('done')
+        axios.post('http://10.177.68.115:808/users/sign-up', user)
+          .then(response => {
+            console.log(response)
+            this.$router.push('/login')
+          })
+      } else {
+        console.log('undone')
+      }
     }
   }
 }
 </script>
 <style scoped>
+.page-view {
+  margin: -8px;
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+}
 .input div span {
     font-weight: 700;
     color: red;
@@ -275,6 +295,7 @@ span.price {
 body {
   font-family: 'Times New Roman', Times, serif;
   background-color: #433520;
+  margin: -8px;
 }
 div {
   box-sizing: border-box;
@@ -289,7 +310,6 @@ div {
 .topnav {
   width: 100%;
   overflow: hidden;
-  background-color: #333;
 }
 .topnav span {
   float: right;
@@ -301,7 +321,6 @@ div {
 }
 .topnav span:hover {
   background-color: #ddd;
-  color: black;
 }
 .topnav span.active {
   background-color: #4CAF50;

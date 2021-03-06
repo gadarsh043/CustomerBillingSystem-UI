@@ -1,5 +1,5 @@
 <template>
-  <div class="quantity-toggle">
+  <div class="quantity-toggle" style=" margin-left: 35%;">
       <button @click="decrement()" class='b' id="prodbutton">&mdash;</button>
       <input class="input-1" type="text" :value="item.quantity" readonly>
       <button @click="increment()" class='b' id="prodbutton">&#xff0b;</button>

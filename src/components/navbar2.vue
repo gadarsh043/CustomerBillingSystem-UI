@@ -1,26 +1,25 @@
 <template>
 <div class="topnav">
-  <router-link to="/login"><span >Login</span></router-link>
-  <router-link to="/register"> <span >Register</span> </router-link>
-  <router-link to="/"> <span >Home</span> </router-link>
+  <a href="/" @click="logout" style="float:right;margin: 15px;">Logout</a>
+  <router-link to="/orderdetails"><span >My Orders</span></router-link>
+  <router-link to="/"><span >Home</span></router-link>
 </div>
 </template>
 <script>
 export default {
-  name: 'navbar'
+  name: 'navbar2',
+  methods: {
+    logout () {
+      localStorage.removeItem('Authorization')
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 <style scoped>
-body {
-  margin: -8px;
-  margin-right: -20px
-}
 .topnav {
-  width: 100vw;
-  top: 0px;
-  margin: -8px;
-  margin-right: -20px;
-  overflow: auto;
+  width: 100%;
+  overflow: hidden;
   background-color: rgb(201, 128, 65);
 }
 .topnav span {

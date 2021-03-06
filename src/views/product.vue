@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <div class="main-cont" style="background-image: url('https://media3.s-nbcnews.com/j/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p_67dfb6820f7d3898b5486975903c2e51.fit-1240w.jpg');opacity: 1;">
+  <div class="productmain">
+    <navbar2 />
+    <div class="main-cont" >
       <div class="item-cont">
         <div class="flex-container">
           <div v-for="i in info" :key="i.id">
-            <div v-bind:id="i.id">
-              <img v-bind:src="i.imgsrc" style="width:60%">
-              <p>
-              {{ i.product_name }} -
+            <div v-bind:id="i.id" style="justify-content: center;align-items: center;overflow: hidden;font-size: 100%;">
+              <img v-bind:src="i.imgsrc" style="flex-shrink: 0;max-width: 100%;" width="230" height="230">
+              <p style="color: black;background-color: burlywood;">
+              {{ i.product_name }}
               {{ i.price }}
               </p>
               </div>
@@ -22,7 +23,7 @@
           Total: {{getTotal}}
         </div>
       </div>
-      <div class="open-item" id="demo" style="color: navajowhite; margin-top: 6%; margin-left: -7%;">
+      <div class="open-item" id="demo" style="color: navajowhite; margin-top: 0%; margin-left: -7%;">
         <template>
           <form @submit.prevent="handleSubmit">
               <div class="form-group form-check" v-for="i in user.productCollection" v-bind:key="i.id">
@@ -51,6 +52,7 @@
 <script>
 import axios from 'axios'
 import quantity from '../components/quantity'
+import navbar2 from '../components/navbar2'
 export default {
   data () {
     return {
@@ -60,14 +62,15 @@ export default {
         productCollection: []
       },
       prodlist: [{
-        qty: '',
-        id: ''
+        productid: 0,
+        quantity: 0
       }]
     }
   },
   name: 'product',
   components: {
-    quantity
+    quantity,
+    navbar2
   },
   computed: {
     getTotal () {
@@ -91,7 +94,15 @@ export default {
       this.user.productCollection[id] = 0
     },
     redirect () {
-      this.$router.push('/payment')
+      for (const i in this.user.productCollection) {
+        if (i.isSelected) {
+          this.prodlist.push({
+            productid: i.productid,
+            quantity: i.quantity
+          })
+        }
+      }
+      this.$router.push('/payment/adarsh')
     },
     setProductCollection (info) {
       this.user.productCollection = []
@@ -106,11 +117,15 @@ export default {
   },
   mounted () {
     axios
-      .get('http://10.177.68.115:8080/product/getProducts')
+      .get('http://10.177.68.115:808/service3/product/getProducts', { headers: { Authorization: localStorage.getItem('Authorization') } })
       .then(response => {
         console.log(response)
         this.info = response.data
         this.setProductCollection(this.info)
+      })
+      .catch(error => {
+        this.errorMessage = error.message
+        console.log(error)
       })
   }
 }
@@ -118,7 +133,13 @@ export default {
 </script>
 
 <style scoped>
-
+.productmain {
+  background-image: url('https://media3.s-nbcnews.com/j/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p_67dfb6820f7d3898b5486975903c2e51.fit-1240w.jpg');
+  margin: -8px;
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+}
 .main-cont {
   display: flex;
   text-align: center;
@@ -138,21 +159,22 @@ export default {
   flex-wrap: wrap;
 }
 button {
-  background-color: darkgreen;
+  background-color: burlywood;
   border-radius: 2px;
-  color: white;
+  color: black;
   text-align: center;
   display: inline-block;
-  font-size: 3px;
+  font-size: 36px;
   margin: auto;
+  font-family: cursive;
 }
 
 .flex-container > div {
-  background-color: #f1f1f1;
-  width: 130px;
-  margin: 30px;
-  line-height: 70px;
-  font-size: 10px;
+  width: 150px;
+  margin: 29px;
+  margin-bottom: -12px;
+  line-height: 35px;
+  font-size: 13px;
 }
 body {
   font-family: 'Times New Roman', Times, serif;
