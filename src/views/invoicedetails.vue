@@ -30,7 +30,7 @@
         <tr v-for="products in productDetails" v-bind:key="products.id">
           <td>{{products.product_name}}</td>
           <td>{{products.quantity}}</td>
-          <td>₹ {{products.price}}</td>
+          <td>{{products.price}}</td>
         </tr>
       </table>
     </div>
@@ -69,7 +69,7 @@ export default {
   },
   created () {
     axios
-      .get('http://10.177.68.115:808/service2/customerbillingsystem/' + store.state.username + '/orders/' + localStorage.getItem('billid'), { headers: { Authorization: localStorage.getItem('Authorization') } })
+      .get('http://10.177.68.19:808/service2/customerbillingsystem/' + store.state.username + '/orders/' + localStorage.getItem('billid'), { headers: { Authorization: localStorage.getItem('Authorization') } })
       .then(response => {
         console.log(response)
         this.prod = response.data

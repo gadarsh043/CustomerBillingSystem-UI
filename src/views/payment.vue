@@ -75,7 +75,7 @@ export default {
     paymentSuccess: function () {
       alert('Payment Successfull')
       axios
-        .post('http://10.177.68.115:808/login', { headers: { Authorization: localStorage.getItem('Authorization') } })
+        .post('http://10.177.68.19:808/login', { headers: { Authorization: localStorage.getItem('Authorization') } })
         .then(response => {
           console.log(response)
           this.$router.push({ path: '/product/adarsh' })
@@ -88,7 +88,7 @@ export default {
   },
   created () {
     axios
-      .get('http://10.177.68.115:808/service3/product/getProducts', { headers: { Authorization: localStorage.getItem('Authorization') } })
+      .get('http://10.177.68.19:808/service3/product/getProducts', { headers: { Authorization: localStorage.getItem('Authorization') } })
       .then(response => {
         console.log(response)
       })

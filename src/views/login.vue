@@ -56,7 +56,7 @@ export default {
         password: this.password
       }
       console.log(info)
-      axios.post('http://10.177.68.115:808/login', info)
+      axios.post('http://10.177.68.19:808/login', info)
         .then(e => {
           console.log(e)
           if (e.status === 200) {

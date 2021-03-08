@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     redirect: function () {
-      this.$router.push('http://10.177.68.114:8082/customerbillingsystem/' + store.state.username + '/orders/' + this.billList.bill_id)
+      this.$router.push('http://10.177.68.19:8082/customerbillingsystem/' + store.state.username + '/orders/' + this.billList.bill_id)
     },
     invoice (id) {
       localStorage.setItem('billid', id)
@@ -46,7 +46,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://10.177.68.115:808/service2/customerbillingsystem/' + store.state.username, { headers: { Authorization: localStorage.getItem('Authorization') } })
+      .get('http://10.177.68.19:808/service2/customerbillingsystem/' + store.state.username, { headers: { Authorization: localStorage.getItem('Authorization') } })
       .then(response => {
         console.log(response)
         this.billList = response.data

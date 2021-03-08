@@ -99,7 +99,7 @@ export default {
       }
       if (this.validate()) {
         console.log('done')
-        axios.post('http://10.177.68.115:808/users/sign-up', user)
+        axios.post('http://10.177.68.19:808/users/sign-up', user)
           .then(response => {
             console.log(response)
             this.$router.push('/login')
